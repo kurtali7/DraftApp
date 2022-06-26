@@ -1,0 +1,97 @@
+import java.io.FileInputStream
+import java.util.Properties
+
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion(Versions.COMPILE_SDK)
+    defaultConfig {
+        applicationId "com.kurt.draftapp"
+        minSdkVersion(Versions.MIN_SDK)
+        targetSdkVersion(Versions.TARGET_SDK)
+        versionCode = Versions.versionCode
+        versionName = Versions.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://itunes.apple.com\""
+            minifyEnabled false
+            debuggable true
+        }
+
+        release {
+            buildConfigField "String", "BASE_URL", "\"https://itunes.apple.com\""
+            minifyEnabled true
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation(Libs.CORE_KTX)
+
+    // UI
+    implementation(Libs.APPCOMPAT)
+    implementation(Libs.FRAGMENT_KTX)
+    implementation(Libs.MATERIAL)
+    implementation(Libs.CONSTRAINT_LAYOUT)
+
+    // Architecture Components
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
+    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.NAVIGATION_FRAGMENT_KTX)
+    implementation(Libs.NAVIGATION_UI_KTX)
+
+    // Dagger Hilt
+    implementation(Libs.HILT_ANDROID)
+    androidTestImplementation(Libs.HILT_TESTING)
+    kapt(Libs.HILT_COMPILER)
+    kaptAndroidTest(Libs.HILT_COMPILER)
+
+    // Glide
+    implementation(Libs.GLIDE)
+    kapt(Libs.GLIDE_COMPILER)
+
+    // Local unit tests
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.EXT_JUNIT)
+    testImplementation(Libs.ESPRESSO_CORE)
+
+    // Retrofit
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_CONVERTER_GSON)
+    implementation(Libs.RXJAVA_RETROFIT_ADAPTER)
+
+    // Other
+    implementation(Libs.PICASSO)
+    implementation(Libs.SDP)
+    implementation(Libs.SEGMENT_CONTROL)
+
+
+
+}

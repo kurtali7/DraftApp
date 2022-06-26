@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.text.Html"/>
+        <variable
+            name="track"
+            type="com.kurt.draftapp.data.model.Track" />
+        <variable
+            name="category"
+            type="String" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".view.ui.TrackDetailActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageArtWork"
+                android:transitionName="artWork"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                bind:artwork="@{track.artworkUrl100}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/image_list_placeholder"
+                android:background="@android:color/transparent"
+                android:outlineProvider="none"
+                android:elevation="@dimen/_6sdp"
+                android:scaleType="centerCrop"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardElevation="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                app:cardBackgroundColor="@color/colorAccent"
+                android:layout_marginEnd="@dimen/_20sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/textCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_4sdp"
+                    tools:text="Music Video"
+                    android:text="@{track.kind == null ? track.wrapperType.toUpperCase() : track.kind.toUpperCase()}"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/colorWhite"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/layoutDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:cardElevation="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:id="@+id/layoutTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_100sdp"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_120sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <TextView
+                            android:id="@+id/textTrackName"
+                            android:transitionName="trackTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            tools:text="Moonlight"
+                            android:text="@{track.trackName==null ? track.collectionName : track.trackName}"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_18sdp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:maxLines="3"
+                            app:autoSizeTextType="uniform"
+                            app:autoSizeMinTextSize="@dimen/_10sdp"
+                            app:autoSizeMaxTextSize="@dimen/_18sdp"
+                            app:autoSizeStepGranularity="@dimen/_2sdp"/>
+
+                        <TextView
+                            android:id="@+id/textTrackArtist"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="George"
+                            android:text="@{track.artistName}"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                        <TextView
+                            android:id="@+id/textReleaseDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:formatDate="@{track.releaseDate}"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/colorPrimaryDark"/>
+
+                        <TextView
+                            android:id="@+id/textPrice"
+                            android:transitionName="trackPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            tools:text="USD 19.99"
+                            android:text="@{track.currency + ` ` + String.valueOf(track.trackPrice == null ? track.collectionPrice : track.trackPrice)}"
+                            android:textSize="@dimen/_11sdp"
+                            android:textStyle="bold"
+                            android:textColor="@color/coloritunes"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textGenre"
+                        android:transitionName="trackGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        tools:text="Action &amp; Adventure"
+                        android:text="@{track.primaryGenreName}"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutTitle"/>
+
+                    <TextView
+                        android:id="@+id/textDescription"
+                        android:transitionName="trackGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_15sdp"
+                        tools:text="Track detail"
+                        android:text="@{track.longDescription==null ? (track.description==null ? `` : Html.fromHtml(track.description)) : track.longDescription}"
+                        android:textSize="@dimen/_13sdp"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textGenre"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>
